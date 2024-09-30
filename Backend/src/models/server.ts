@@ -1,7 +1,8 @@
 import express, { Application } from 'express';
-import sequelize from '../database/connections';
 import Ruser from '../routes/user';
+import RProduct from '../routes/products'
 import { User } from './user';
+import { Product } from './products';
 
 
 class Server{
@@ -20,12 +21,13 @@ class Server{
 
     listen(){
         this.app.listen(this.port,()=>{
-            console.log("Hola mundo por aca: "+ this.port)
+            console.log("Puerto: "+ this.port)
         })
     }
 
     router(){
         this.app.use(Ruser) 
+        this.app.use(RProduct) 
     }
 
     midlewares(){
@@ -35,7 +37,8 @@ class Server{
 
     async DBconnect(){
         try {
-            await User.sync({ force: true});
+            await User.sync();
+            await Product.sync();
             console.log("Conexion Exitosa");
         } catch (error) {
             console.log("Error de conexion: ", error);
@@ -43,5 +46,6 @@ class Server{
     }
 
 }
+
 
 export default Server

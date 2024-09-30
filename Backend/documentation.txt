@@ -37,3 +37,4 @@ Instalar dependecias de TS
 Encripta Password 
 - npm i --save-dev @types/bcrypt
 - npm i --save-dev @types/cors
+- npm i --save-dev @types/jsonwebtoken

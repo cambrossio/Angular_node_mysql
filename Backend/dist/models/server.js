@@ -14,7 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_1 = __importDefault(require("../routes/user"));
+const products_1 = __importDefault(require("../routes/products"));
 const user_2 = require("./user");
+const products_2 = require("./products");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -26,11 +28,12 @@ class Server {
     }
     listen() {
         this.app.listen(this.port, () => {
-            console.log("Hola mundo por aca: " + this.port);
+            console.log("Puerto: " + this.port);
         });
     }
     router() {
         this.app.use(user_1.default);
+        this.app.use(products_1.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());
@@ -38,7 +41,8 @@ class Server {
     DBconnect() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield user_2.User.sync({ force: true });
+                yield user_2.User.sync();
+                yield products_2.Product.sync();
                 console.log("Conexion Exitosa");
             }
             catch (error) {
