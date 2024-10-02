@@ -7,12 +7,9 @@ import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-sing-in',
-  standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule],
   templateUrl: './sing-in.component.html',
-  styleUrls: ['./sing-in.component.css']
+  styleUrl: './sing-in.component.css'
 })
-
 export class SingInComponent implements OnInit {
   name:string='';
   lastname:string='';

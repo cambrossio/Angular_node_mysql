@@ -1,43 +1,43 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { LoginComponent } from './components/login/login.component';
-import { SingInComponent } from './components/sing-in/sing-in.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { LoginComponent } from './components/login/login.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SingInComponent } from './components/sing-in/sing-in.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ProductComponent } from './components/dashboard/product/product.component';
-import { AppRountingModule } from './app.routes';
-import { FormsModule } from '@angular/forms';
-
-
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SingInComponent,
     DashboardComponent,
-    NavbarComponent,
-    SpinnerComponent,
+    LoginComponent,
     MaintenanceComponent,
+    NavbarComponent,
+    SingInComponent,
     ErrorPageComponent,
-    ProductComponent
+    ProductComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     CommonModule,
-    AppRountingModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    provideClientHydration()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
