@@ -19,6 +19,6 @@ export const registerProduct = async(req: Request, res: Response) =>{
 
 export const getProducts =async (req:Request, res:Response) => {
     const listProducts = await Product.findAll();
-    res.json({listProducts})
+    res.json(listProducts)
     
 }

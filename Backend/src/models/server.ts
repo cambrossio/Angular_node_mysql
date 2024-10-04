@@ -3,6 +3,7 @@ import Ruser from '../routes/user';
 import RProduct from '../routes/products'
 import { User } from './user';
 import { Product } from './products';
+import cors from 'cors';
 
 
 class Server{
@@ -32,6 +33,7 @@ class Server{
 
     midlewares(){
         this.app.use(express.json())
+        this.app.use(cors())
     }
         
 

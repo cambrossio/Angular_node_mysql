@@ -14,7 +14,7 @@ const validateToken = (req, res, next) => {
         }
         catch (error) {
             res.status(401).json({
-                msg: `Token Invalido`
+                msg: `Se ha expirado el tiempo de inicio de sesion`
             });
         }
     }

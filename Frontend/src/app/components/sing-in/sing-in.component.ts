@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CommonModule } from '@angular/common'
+import { User } from '../../interfaces/user';
+import { ErrorsService } from '../../services/errors.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -17,31 +19,55 @@ export class SingInComponent implements OnInit {
   email:string='';
   password:string='';
   repeatpassword:string='';
-      
-  constructor(private tss: ToastrService){}
+
+  loading:boolean=false;
+        
+  constructor(
+    private tss: ToastrService,
+    private _userService: UserService,
+    private router: Router,
+    private _errorService: ErrorsService
+    ){}
   ngOnInit():void{
     
   }  
 
   addUser(){
+    //VALIDACIONES
+
     if(this.name == '' || this.lastname == '' || this.credential == '' || this.email == '' || this.password == '' || this.repeatpassword == ''){
-    //      console.log(this.tss)
-
-      this.tss.error('Faltan datos','error');
-      
-      
-      //alert("Faltan datos")
-      return
-    }else{
-      //alert("enviaste los datos")
+        this.tss.error('Todos los Datos son necesarios','error');
+        return
     }
-
     if (this.password != this.repeatpassword){
-      //alert("Las claves son diferentes, verifica que sean iguales!")
+      this.tss.warning('Las Password son distintas, verificar!','Verificar');
       return
     }
 
+    //CREAR USUARIO EN BASE DE DATOS
 
+    const user: User = {
+      name:this.name,
+      lastname:this.lastname,
+      email:this.email,
+      password:this.password,
+      credential:this.credential
+    }
+
+    this.loading=true
+    this._userService.sigIn(user).subscribe({
+        next: (v) => {
+          this.loading=false
+          this.tss.success(`Usuario ${this.name} ${this.lastname} creado exitosamente`)
+          this.router.navigate(['/logIn'])
+        },
+        error: (e: HttpErrorResponse) => {
+          this.loading=false
+          this._errorService.messageError(e)
+        },
+        complete: () => console.info('complete') 
+    })
+    
   }
 
 }

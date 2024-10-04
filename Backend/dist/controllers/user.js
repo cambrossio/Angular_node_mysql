@@ -27,7 +27,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     try {
-        user_1.User.create({
+        yield user_1.User.create({
             name: name,
             lastname: lastname,
             password: passwordHash,
@@ -35,15 +35,15 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             credential: credential,
             status: 1,
         });
+        return res.json({
+            msg: `User ${name} ${lastname} creado exitosamente..`
+        });
     }
     catch (error) {
         res.status(400).json({
             msg: `Existe un error al querer registrar el usuario ${name} ${lastname}`
         });
     }
-    res.json({
-        msg: `User ${name} ${lastname} creado exitosamente..`
-    });
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,8 +63,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = jsonwebtoken_1.default.sign({
         email: email
     }, process.env.SECRET_KEY || 'Sincro01.Adm', {
-        expiresIn: '1h' //expira el token en 1 hora
+        expiresIn: '1d' //expira el token en 1 hora
     });
-    res.json({ token });
+    return res.json({ token });
 });
 exports.login = login;

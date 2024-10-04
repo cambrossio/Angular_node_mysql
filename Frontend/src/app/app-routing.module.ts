@@ -5,12 +5,13 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { LoginComponent } from './components/login/login.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { SingInComponent } from './components/sing-in/sing-in.component';
+import { guardGuard } from './utils/guard.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'logIn', component: LoginComponent},
   {path: 'singIn', component: SingInComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [guardGuard]},
   {path: 'maintenance', component: MaintenanceComponent},
   {path: 'errorPage', component: ErrorPageComponent},
   {path: '**', redirectTo:'/errorPage',pathMatch: 'full'},

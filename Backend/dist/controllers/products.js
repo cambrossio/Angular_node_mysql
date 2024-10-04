@@ -25,6 +25,6 @@ const registerProduct = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.registerProduct = registerProduct;
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const listProducts = yield products_1.Product.findAll();
-    res.json({ listProducts });
+    res.json(listProducts);
 });
 exports.getProducts = getProducts;

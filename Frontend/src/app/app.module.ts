@@ -14,6 +14,8 @@ import { ProductComponent } from './components/dashboard/product/product.compone
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HTTP_INTERCEPTORS,HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { TokenInterceptor } from './utils/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,11 +34,22 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     CommonModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [
-    provideClientHydration()
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

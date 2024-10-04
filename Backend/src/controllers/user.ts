@@ -19,7 +19,7 @@ export const register = async(req: Request, res: Response) =>{
 
     try {
 
-        User.create({
+       await User.create({
             name: name,
             lastname: lastname,
             password: passwordHash,
@@ -27,16 +27,18 @@ export const register = async(req: Request, res: Response) =>{
             credential: credential,
             status: 1,
         })
+
+        return res.json({
+            msg: `User ${name} ${lastname} creado exitosamente..`
+         });
         
     } catch (error) {
         res.status(400).json({
             msg:`Existe un error al querer registrar el usuario ${name} ${lastname}`
-        })
+        });
     } 
 
-    res.json({
-        msg: `User ${name} ${lastname} creado exitosamente..`
-     })
+   
 
 }
 
@@ -63,10 +65,10 @@ export const login = async (req: Request, res: Response)=>{
     const token = jwt.sign({
         email:email
     }, process.env.SECRET_KEY || 'Sincro01.Adm', {
-        expiresIn: '1h' //expira el token en 1 hora
+        expiresIn: '1d' //expira el token en 1 hora
     });
 
-    res.json({token})
+    return res.json({token});
 
 
 }
