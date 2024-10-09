@@ -38,3 +38,4 @@ Encripta Password
 - npm i --save-dev @types/bcrypt
 - npm i --save-dev @types/cors
 - npm i --save-dev @types/jsonwebtoken
+- npm install @types/express@4.17.17 --save-dev (Si da error en la rutas)
